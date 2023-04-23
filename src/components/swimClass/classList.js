@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Loading from '../loading';
 
 const ClassList = () => {
-  const [classes, setClasses] = useState([]);
+  const [classes, setClasses] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    fetch('http://localhost:3000/swim_classes')
+    fetch('https://rails-wout.onrender.com/swim_classes')
       .then((response) => response.json())
       .then((data) => setClasses(data));
-  }, [currentIndex]);
+  }, [currentIndex, count]);
 
   const goToPrevSlide = () => {
     if (currentIndex === 0) return;
@@ -17,7 +19,7 @@ const ClassList = () => {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3000/swim_classes/${id}`, {
+    fetch(`https://rails-wout.onrender.com/swim_classes/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -27,6 +29,7 @@ const ClassList = () => {
         if (response.ok) {
           console.log('SwimClass deleted successfully');
           setCurrentIndex(0);
+          setCount(classes.length);
         } else {
           console.error('Failed to delete SwimClass:', response.status);
         }
@@ -44,53 +47,59 @@ const ClassList = () => {
   return (
     <div className="container">
       <h2 className="text-center mt-5">Welcome to Swimming Class</h2>
-      <div className="carousel-container">
-        <ul
-          className="carousel-list"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {classes.map((swimClass) => (
-            <div key={swimClass.id} className="class-item">
-              <Link to={`/swimClass/${swimClass.id}`}>
-                <img
-                  src={
-                    swimClass.image
-                    || 'https://i.postimg.cc/rmgZkkPK/havuz-izolasyonu.jpg'
-                  }
-                  alt={swimClass.name}
-                />
-              </Link>
-              <h4>{swimClass.name}</h4>
-              <p>
-                * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-                * *
-              </p>
-              <p>{swimClass.description}</p>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() => handleDelete(swimClass.id)}
-              >
-                Delete class
-              </button>
-            </div>
-          ))}
-        </ul>
-        <button
-          type="button"
-          className="carousel-prev-btn"
-          onClick={goToPrevSlide}
-        >
-          &#8249;
-        </button>
-        <button
-          type="button"
-          className="carousel-next-btn"
-          onClick={goToNextSlide}
-        >
-          &#8250;
-        </button>
-      </div>
+      {!classes && <Loading message="Loading..." />}
+      {classes && classes.length === 0 && (
+        <Loading message="You have no swimming classes yet!" />
+      )}
+      {classes && classes.length !== 0 && (
+        <div className="carousel-container">
+          <ul
+            className="carousel-list"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {classes.map((swimClass) => (
+              <div key={swimClass.id} className="class-item">
+                <Link to={`/swimClass/${swimClass.id}`}>
+                  <img
+                    src={
+                      swimClass.image
+                      || 'https://i.postimg.cc/rmgZkkPK/havuz-izolasyonu.jpg'
+                    }
+                    alt={swimClass.name}
+                  />
+                </Link>
+                <h4>{swimClass.name}</h4>
+                <p>
+                  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                  * * *
+                </p>
+                <p>{swimClass.description}</p>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => handleDelete(swimClass.id)}
+                >
+                  Delete class
+                </button>
+              </div>
+            ))}
+          </ul>
+          <button
+            type="button"
+            className="carousel-prev-btn"
+            onClick={goToPrevSlide}
+          >
+            &#8249;
+          </button>
+          <button
+            type="button"
+            className="carousel-next-btn"
+            onClick={goToNextSlide}
+          >
+            &#8250;
+          </button>
+        </div>
+      )}
     </div>
   );
 };

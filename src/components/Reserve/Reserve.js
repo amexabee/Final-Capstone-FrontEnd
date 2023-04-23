@@ -6,15 +6,16 @@ import '../../assets/styles/Bookings.css';
 const Bookings = () => {
   const dispatch = useDispatch();
   const { bookings } = useSelector((state) => state.bookings);
-  const { id } = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
   const [items, setItems] = useState([]);
+  const id = user ? user.id : 0;
 
   useEffect(() => {
     dispatch(getBookings(id));
   }, [dispatch, id]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/swim_classes')
+    fetch('https://rails-wout.onrender.com/swim_classes')
       .then((res) => res.json())
       .then((data) => setItems(data))
       .catch((err) => console.log(err));
