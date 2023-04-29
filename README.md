@@ -1,4 +1,5 @@
 <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="react" height="auto" />
+
 # Book A Swimming Class Frontend
 
 > This is a React front-end Swimming class booking web-application. This applications is responsive and users can load, create, and delete classes and reservations. We use React for the front-end. In order to access the application users need to sign up or login.
