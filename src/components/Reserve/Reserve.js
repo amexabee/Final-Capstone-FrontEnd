@@ -15,7 +15,7 @@ const Bookings = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    fetch('https://rails-wout.onrender.com/swim_classes')
+    fetch('https://rails-i4jr.onrender.com/swim_classes')
       .then((res) => res.json())
       .then((data) => setItems(data))
       .catch((err) => console.log(err));
@@ -27,14 +27,14 @@ const Bookings = () => {
   return (
     <>
       <section className="bookings">
-        <h1>RESERVATION LISTS</h1>
+        <h1>Reservations</h1>
         <table className="bookings-list">
           <thead className="thead">
             <tr>
-              <th>CLASS</th>
-              <th>description</th>
-              <th>location</th>
-              <th>MONTHLY FEE</th>
+              <th>Class</th>
+              <th>Description</th>
+              <th>Location</th>
+              <th>Monthly Fee</th>
             </tr>
           </thead>
           <tbody className="thead">
