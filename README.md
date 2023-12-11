@@ -1,6 +1,8 @@
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="react" height="auto" />
+
 # Book A Swimming Class Frontend
 
-> This is a React front-end Swimming class booking web-application. This applications is responsive and users can load, create, and delete doctors and reservations We use React for the front-end. In order to access the application users need to sign up or login.
+> This is a React front-end Swimming class booking web-application. This applications is responsive and users can load, create, and delete classes and reservations. We use React for the front-end. In order to access the application users need to sign up or login.
 
 ## Link to the backend
 [Book A Swimming Class Backend](https://github.com/users/amexabee/final-capstone)
@@ -32,7 +34,7 @@
 
 ## Live version
 
-- [In progress]
+- [Live Demo](https://swimming.onrender.com/)
 
 ## Built With
 - HTML
