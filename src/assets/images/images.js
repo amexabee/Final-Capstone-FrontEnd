@@ -1,10 +1,9 @@
-import pool1 from './pool1.avif';
-import pool2 from './pool2.avif';
-import pool3 from './pool3.avif';
-import pool4 from './pool4.avif';
-import pool5 from './pool5.avif';
-import pool6 from './pool1.jpg';
+import pool1 from './pool1.jpg';
+import pool2 from './pool2.jpg';
+import pool3 from './pool3.jpg';
+import pool4 from './pool4.jpg';
+import pool5 from './pool5.jpg';
 
-const images = [pool1, pool2, pool3, pool4, pool5, pool6];
+const images = [pool1, pool2, pool3, pool4, pool5];
 
 export default images;
