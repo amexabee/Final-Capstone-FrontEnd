@@ -20,7 +20,7 @@ const Navbar = () => (
         <>{logo}</>
       ))}
     </div>
-    <p>© 2023 Amanuel-Tamana-Osama</p>
+    <p>© 2023 Amanuel Galema</p>
   </nav>
 );
 
