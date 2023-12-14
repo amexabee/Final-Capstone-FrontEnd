@@ -6,32 +6,27 @@ import '../../assets/styles/ClassCreate.css';
 import images from '../../assets/images/images';
 
 const ClassCreate = () => {
-  const [className, setClassName] = useState('');
+  const [option, setOptions] = useState('');
   const [classLocation, setClassLocation] = useState('');
   const [classFee, setClassFee] = useState('');
   const [classDescription, setClassDescription] = useState('');
-  const pointer = parseInt(
-    JSON.parse(localStorage.getItem('pointer')) || 0,
-    10,
-  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { image } = images.filter((img) => img.name === option)[0];
     const classData = {
-      name: className,
+      name: option,
       location: classLocation,
-      image: images[pointer],
+      image,
       fee: classFee,
       description: classDescription,
     };
     dispatch(postClass(classData));
     dispatch(getSwimClasses());
     navigate('/swimClass');
-    if (pointer === 4) JSON.stringify(localStorage.setItem('pointer', 0));
-    else JSON.stringify(localStorage.setItem('pointer', pointer + 1));
   };
 
   const screen = (
@@ -44,15 +39,23 @@ const ClassCreate = () => {
             handleSubmit(e);
           }}
         >
-          <input
-            type="text"
-            placeholder="Class name"
-            name="className"
-            className="form-input"
-            value={className}
-            onChange={(e) => setClassName(e.target.value)}
-            required
-          />
+          <div className="d-flex">
+            {images.map((image) => (
+              <span key={image.name} className="form-check mx-3">
+                <label className="form-check-label" htmlFor="exampleRadios1">
+                  <input
+                    className="form-check-input mx-3"
+                    type="radio"
+                    name="exampleRadios"
+                    id="exampleRadios1"
+                    value={image.name}
+                    onChange={(e) => setOptions(e.target.value)}
+                  />
+                  <p>{image.name}</p>
+                </label>
+              </span>
+            ))}
+          </div>
           <input
             type="text"
             placeholder="Location"
