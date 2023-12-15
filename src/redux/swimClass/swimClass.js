@@ -15,7 +15,7 @@ export const getSwimClasses = createAsyncThunk(
     });
     const swimClasses = await response.json();
     return swimClasses;
-  },
+  }
 );
 
 export const deleteClass = createAsyncThunk(
@@ -33,7 +33,7 @@ export const deleteClass = createAsyncThunk(
     } catch (e) {
       return e.error;
     }
-  },
+  }
 );
 
 export const postClass = createAsyncThunk(
@@ -52,7 +52,7 @@ export const postClass = createAsyncThunk(
       }
       throw new Error('Something went wrong');
     });
-  },
+  }
 );
 export const updateClass = createAsyncThunk(
   'swimClasses/updateClass',
@@ -70,7 +70,7 @@ export const updateClass = createAsyncThunk(
       }
       throw new Error('Something went wrong');
     });
-  },
+  }
 );
 
 export const swimClassesSlice = createSlice({
@@ -82,31 +82,29 @@ export const swimClassesSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getSwimClasses.pending, (state) => {
+      state.status = 'loading';
+    });
     builder.addCase(getSwimClasses.fulfilled, (state, action) => {
       state.status = 'success';
       state.swimClasses = action.payload;
     });
-    builder.addCase(getSwimClasses.pending, (state) => {
-      state.status = 'loading';
-    });
+
     builder.addCase(getSwimClasses.rejected, (state) => {
       state.status = 'failed';
     });
-    builder.addCase(deleteClass.fulfilled, (state, action) => ({
-      ...state,
-      status: 'success',
-      swimClasses: state.swimClasses.filter(
-        (swimClass) => swimClass.id !== action.payload,
-      ),
-    }));
-    builder.addCase(deleteClass.pending, (state) => ({
-      ...state,
-      status: 'loading',
-    }));
-    builder.addCase(deleteClass.rejected, (state) => ({
-      ...state,
-      status: 'failed',
-    }));
+    builder.addCase(deleteClass.pending, (state) => {
+      state.status = 'loading';
+    });
+    builder.addCase(deleteClass.fulfilled, (state, action) => {
+      state.status = 'success';
+      state.swimClasses = state.swimClasses.filter(
+        (swimClass) => swimClass.id !== action.payload
+      );
+    });
+    builder.addCase(deleteClass.rejected, (state) => {
+      state.status = 'failed';
+    });
     builder.addCase(postClass.fulfilled, (state, action) => ({
       ...state,
       postStatus: 'success',
