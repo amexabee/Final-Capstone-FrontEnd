@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Loading from '../loading';
 
 const ClassList = () => {
-  const { swimClasses } = useSelector((store) => store.swimClasses);
+  const { swimClasses, status } = useSelector((store) => store.swimClasses);
   const [index, setIndex] = useState(0);
   const asterisks = '* '.repeat(30);
 
@@ -30,10 +30,13 @@ const ClassList = () => {
       <h4 className="text-center my-5">
         Make a splash with our swimming classes!
       </h4>
-      {!filtered && <Loading message="Loading..." />}
-      {filtered?.length === 0 && (
+
+      {filtered?.length === 0 && status === 'success' ? (
         <Loading message="You have no swimming classes yet!" />
+      ) : (
+        <Loading message="Loading..." />
       )}
+
       {filtered?.length > 0 && (
         <div className="classes-container">
           <button className="arrow" type="button" onClick={() => left()}>
