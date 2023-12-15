@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { postClass, getSwimClasses } from '../../redux/swimClass/swimClass';
+import { postClass } from '../../redux/swimClass/swimClass';
 import '../../assets/styles/ClassCreate.css';
 import images from '../../assets/images/images';
 
@@ -25,7 +25,6 @@ const ClassCreate = () => {
       description: classDescription,
     };
     dispatch(postClass(classData));
-    dispatch(getSwimClasses());
     navigate('/swimClass');
   };
 

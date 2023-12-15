@@ -31,7 +31,7 @@ export const deleteClass = createAsyncThunk(
       });
       return response.ok ? id : null;
     } catch (e) {
-      return e.errors;
+      return e.error;
     }
   },
 );
@@ -82,6 +82,16 @@ export const swimClassesSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getSwimClasses.fulfilled, (state, action) => {
+      state.status = 'success';
+      state.swimClasses = action.payload;
+    });
+    builder.addCase(getSwimClasses.pending, (state) => {
+      state.status = 'loading';
+    });
+    builder.addCase(getSwimClasses.rejected, (state) => {
+      state.status = 'failed';
+    });
     builder.addCase(deleteClass.fulfilled, (state, action) => ({
       ...state,
       status: 'success',
@@ -107,19 +117,6 @@ export const swimClassesSlice = createSlice({
       status: 'loading',
     }));
     builder.addCase(postClass.rejected, (state) => ({
-      ...state,
-      status: 'failed',
-    }));
-    builder.addCase(getSwimClasses.fulfilled, (state, action) => ({
-      ...state,
-      status: 'success',
-      swimClasses: action.payload,
-    }));
-    builder.addCase(getSwimClasses.pending, (state) => ({
-      ...state,
-      status: 'loading',
-    }));
-    builder.addCase(getSwimClasses.rejected, (state) => ({
       ...state,
       status: 'failed',
     }));

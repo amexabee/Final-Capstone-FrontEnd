@@ -1,29 +1,17 @@
 import { useParams, useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteClass } from '../../redux/swimClass/swimClass';
 
 const ClassDetails = () => {
-  const [item, setItem] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch(`https://rails-i4jr.onrender.com/swim_classes/${id}`)
-      .then((res) => res.json())
-      .then((data) => setItem(data))
-      .catch((err) => console.log(err));
-  }, [id]);
+  const dispatch = useDispatch();
+  const { swimClasses } = useSelector((store) => store.swimClasses);
+  const item = swimClasses.filter((sc) => sc.id.toString() === id)[0];
 
   const handleDelete = (id) => {
-    fetch(`https://rails-i4jr.onrender.com/swim_classes/${id}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((response) => {
-        if (response.ok) console.log('Successfuly deleted');
-        else console.error('Failed to delete SwimClass:', response.status);
-      })
-      .catch((error) => console.error('Error deleting SwimClass:', error));
+    dispatch(deleteClass(id));
     navigate('/swimClass');
   };
 
