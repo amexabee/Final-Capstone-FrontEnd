@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteClass } from '../../redux/swimClass/swimClass';
+import { deleteClass, getSwimClasses } from '../../redux/swimClass/swimClass';
 
 const ClassDetails = () => {
   const { id } = useParams();
@@ -12,6 +12,7 @@ const ClassDetails = () => {
 
   const handleDelete = (id) => {
     dispatch(deleteClass(id));
+    dispatch(getSwimClasses());
     navigate('/swimClass');
   };
 
