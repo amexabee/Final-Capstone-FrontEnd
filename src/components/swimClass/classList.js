@@ -1,18 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import Loading from '../loading';
 
 const ClassList = () => {
-  const [classes, setClasses] = useState(null);
+  const { swimClasses } = useSelector((store) => store.swimClasses);
   const [index, setIndex] = useState(0);
   const asterisks = '* '.repeat(30);
-
-  useEffect(() => {
-    fetch('https://rails-i4jr.onrender.com/swim_classes')
-      .then((response) => response.json())
-      .then((data) => setClasses(data));
-  }, []);
 
   const left = () => {
     if (index <= 0) return;
@@ -20,12 +15,14 @@ const ClassList = () => {
   };
 
   const right = () => {
-    if (index >= classes.length - 3) return;
+    if (index >= swimClasses.length - 3) return;
     setIndex(index + 1);
   };
 
   let filtered = null;
-  filtered = classes && classes.length >= 3 ? classes.slice(index, index + 3) : classes;
+  filtered = swimClasses && swimClasses.length >= 3
+    ? swimClasses.slice(index, index + 3)
+    : swimClasses;
 
   return (
     <div className="container overflow-auto mb-5">
@@ -34,10 +31,10 @@ const ClassList = () => {
         Make a splash with our swimming classes!
       </h4>
       {!filtered && <Loading message="Loading..." />}
-      {filtered && filtered.length === 0 && (
+      {filtered?.length === 0 && (
         <Loading message="You have no swimming classes yet!" />
       )}
-      {filtered && filtered.length !== 0 && (
+      {filtered?.length > 0 && (
         <div className="classes-container">
           <button className="arrow" type="button" onClick={() => left()}>
             <FaIcons.FaArrowLeft />
