@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/ClassCreate.css';
 import images from '../../assets/images/images';
-import { postClass } from '../../redux/swimClass/swimClass';
-import { getSwimClasses } from './../../redux/swimClass/swimClass';
+import { postClass, getSwimClasses } from '../../redux/swimClass/swimClass';
 
 const ClassCreate = () => {
   const [option, setOptions] = useState('');
