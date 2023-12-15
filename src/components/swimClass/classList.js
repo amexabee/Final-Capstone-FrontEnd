@@ -31,10 +31,10 @@ const ClassList = () => {
         Make a splash with our swimming classes!
       </h4>
 
-      {filtered?.length === 0 && status ? (
-        <Loading message="Loading..." />
-      ) : (
+      {filtered?.length === 0 && status === 'success' ? (
         <Loading message="You have no swimming classes yet!" />
+      ) : (
+        <Loading message="Loading..." />
       )}
 
       {filtered?.length > 0 && (
