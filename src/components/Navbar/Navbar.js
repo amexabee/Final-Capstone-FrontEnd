@@ -9,15 +9,17 @@ const Navbar = () => (
       {links.map((link) => (
         <li key={link.id} className="link">
           <NavLink to={link.path}>
-            <span>{link.title}</span>
+            <span key={link.path}>{link.title}</span>
           </NavLink>
         </li>
       ))}
     </ul>
 
-    <div className="logos">
-      {logos.map((logo) => (
-        <>{logo}</>
+    <div className="m-2 d-flex">
+      {logos.map((item) => (
+        <div className="mx-2" key={item.id}>
+          {item}
+        </div>
       ))}
     </div>
     <p>© 2023 Amanuel Galema</p>

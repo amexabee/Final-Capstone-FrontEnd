@@ -25,7 +25,8 @@ const ClassList = () => {
   };
 
   let filtered = null;
-  filtered = classes && classes.length >= 3 ? classes.slice(index, index + 3) : classes;
+  filtered =
+    classes && classes.length >= 3 ? classes.slice(index, index + 3) : classes;
 
   return (
     <div className="container overflow-auto mb-5">
