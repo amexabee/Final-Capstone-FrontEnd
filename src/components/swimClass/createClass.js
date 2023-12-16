@@ -37,7 +37,7 @@ const ClassCreate = () => {
     dispatch(getSwimClasses());
     setTimeout(() => {
       navigate('/swimClass');
-    }, 1000);
+    }, 2000);
   };
 
   const screen = (
