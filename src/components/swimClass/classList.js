@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../loading';
+import { setPath } from '../../redux/swimClass/swimClass';
 
 const ClassList = () => {
   const { swimClasses, status } = useSelector((store) => store.swimClasses);
+  const dispatch = useDispatch();
   const [index, setIndex] = useState(0);
   const asterisks = '* '.repeat(30);
+
+  useEffect(() => {
+    dispatch(setPath('/'));
+  });
 
   const left = () => {
     if (index <= 0) return;

@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../assets/styles/addReserve.css';
+import { useDispatch } from 'react-redux';
+import { setPath } from '../../redux/swimClass/swimClass';
 
 const AddReservation = () => {
   const [user, setUser] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(setPath('reservations'));
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));

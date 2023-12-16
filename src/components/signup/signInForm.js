@@ -1,11 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { signIn } from './api';
+import { setPath } from '../../redux/swimClass/swimClass';
 
 const SignInForm = ({ onSignIn }) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    dispatch(setPath('signup'));
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();

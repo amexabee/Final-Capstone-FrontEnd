@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/ClassCreate.css';
 import images from '../../assets/images/images';
-import { postClass, getSwimClasses } from '../../redux/swimClass/swimClass';
+import {
+  postClass,
+  getSwimClasses,
+  setPath,
+} from '../../redux/swimClass/swimClass';
 
 const ClassCreate = () => {
   const [option, setOptions] = useState('');
@@ -13,6 +17,10 @@ const ClassCreate = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setPath('add-class'));
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();

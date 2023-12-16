@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getBookings } from '../../redux/bookings/bookings';
 import '../../assets/styles/Bookings.css';
+import { setPath } from '../../redux/swimClass/swimClass';
 
 const Bookings = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const Bookings = () => {
   const id = user ? user.id : 0;
 
   useEffect(() => {
+    dispatch(setPath('reservations'));
     dispatch(getBookings(id));
   }, [dispatch, id]);
 
