@@ -26,18 +26,17 @@ const ClassList = () => {
   };
 
   let filtered = null;
-  filtered =
-    swimClasses && swimClasses.length >= 3
-      ? swimClasses.slice(index, index + 3)
-      : swimClasses;
+  filtered = swimClasses && swimClasses.length >= 3
+    ? swimClasses.slice(index, index + 3)
+    : swimClasses;
 
   return (
     <div className="container overflow-auto mb-5">
       <h1 className="text-center mt-5">Welcome to Swimming Class</h1>
 
-      {filtered?.length === 0 &&
-        (status === 'success' ? (
-          <div className="d-flex flex-column m-5 justify-content-center">
+      {filtered?.length === 0
+        && (status === 'success' ? (
+          <div className="d-flex flex-column m-5 align-items-center">
             <h4 className="mx-4">You have no swimming classes yet</h4>
             <button type="button" className="btn btn-success m-3 detail-btn">
               <Link to="/add-class">Create</Link>
