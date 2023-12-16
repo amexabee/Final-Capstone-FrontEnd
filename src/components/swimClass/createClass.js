@@ -24,11 +24,12 @@ const ClassCreate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { image } = images.filter((img) => img.name === option)[0];
+    if (!option) return;
+    const image = images.filter((img) => img.name === option)[0];
     const classData = {
       name: option,
       location: classLocation,
-      image,
+      image: image.image,
       fee: classFee,
       description: classDescription,
     };
