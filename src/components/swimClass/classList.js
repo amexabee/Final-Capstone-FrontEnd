@@ -39,7 +39,12 @@ const ClassList = () => {
 
       {filtered?.length === 0
         && (status === 'success' ? (
-          <Loading message="You have no swimming classes yet!" />
+          <div className="d-flex m-5 justify-content-center">
+            <h4 className="mx-4">You have no swimming classes yet</h4>
+            <button type="button" className="btn btn-success m-3 detail-btn">
+              <Link to="add-class">Create</Link>
+            </button>
+          </div>
         ) : (
           <Loading message="Loading..." />
         ))}
