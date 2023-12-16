@@ -26,10 +26,9 @@ const ClassList = () => {
   };
 
   let filtered = null;
-  filtered =
-    swimClasses && swimClasses.length >= 3
-      ? swimClasses.slice(index, index + 3)
-      : swimClasses;
+  filtered = swimClasses && swimClasses.length >= 3
+    ? swimClasses.slice(index, index + 3)
+    : swimClasses;
 
   return (
     <div className="container overflow-auto mb-5">
@@ -38,8 +37,8 @@ const ClassList = () => {
         Make a splash with our swimming classes!
       </h4>
 
-      {filtered?.length === 0 &&
-        (status === 'success' ? (
+      {filtered?.length === 0
+        && (status === 'success' ? (
           <Loading message="You have no swimming classes yet!" />
         ) : (
           <Loading message="Loading..." />
