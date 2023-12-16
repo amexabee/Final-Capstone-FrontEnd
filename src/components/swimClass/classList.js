@@ -26,9 +26,10 @@ const ClassList = () => {
   };
 
   let filtered = null;
-  filtered = swimClasses && swimClasses.length >= 3
-    ? swimClasses.slice(index, index + 3)
-    : swimClasses;
+  filtered =
+    swimClasses && swimClasses.length >= 3
+      ? swimClasses.slice(index, index + 3)
+      : swimClasses;
 
   return (
     <div className="container overflow-auto mb-5">
@@ -37,8 +38,8 @@ const ClassList = () => {
         Make a splash with our swimming classes!
       </h4>
 
-      {filtered?.length === 0
-        && (status === 'success' ? (
+      {filtered?.length === 0 &&
+        (status === 'success' ? (
           <Loading message="You have no swimming classes yet!" />
         ) : (
           <Loading message="Loading..." />
@@ -51,9 +52,9 @@ const ClassList = () => {
           </button>
           <ul className="classes">
             {filtered.map((swimClass) => (
-              <li key={swimClass?.id}>
-                <img src={swimClass?.image} alt={swimClass?.name} />
-                <h4 className="text-center m-3">{swimClass?.name}</h4>
+              <li key={swimClass.id}>
+                <img src={swimClass.image} alt={swimClass.name} />
+                <h4 className="text-center m-3">{swimClass.name}</h4>
                 <div className="asterisks">
                   <p className="text-center text-muted">{asterisks}</p>
                 </div>
@@ -67,14 +68,14 @@ const ClassList = () => {
                   <div className="circle" />
                   <div className="green text-center d-flex align-items-center">
                     <FaIcons.FaLocationArrow />
-                    <p className="mx-2 my-0">{swimClass?.location}</p>
+                    <p className="mx-2 my-0">{swimClass.location}</p>
                   </div>
                 </div>
                 <h5 className="text-center m-3">
                   Fee:
-                  <span className="green">{` $${swimClass?.fee}`}</span>
+                  <span className="green">{` $${swimClass.fee}`}</span>
                 </h5>
-                <p className="text-center mb-0">{swimClass?.description}</p>
+                <p className="text-center mb-0">{swimClass.description}</p>
                 <p className="text-center mx-2">
                   <small className=" text-muted">
                     Nestled within lush tropical landscapes, this refined
@@ -87,9 +88,7 @@ const ClassList = () => {
                     type="button"
                     className="btn btn-success m-3 detail-btn"
                   >
-                    <Link to={`/swimClass/${swimClass?.id}`}>
-                      Class Details
-                    </Link>
+                    <Link to={`/swimClass/${swimClass.id}`}>Class Details</Link>
                   </button>
                 </div>
               </li>
