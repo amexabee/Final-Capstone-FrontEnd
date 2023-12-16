@@ -34,7 +34,7 @@ const ClassCreate = () => {
       description: classDescription,
     };
     dispatch(postClass(classData));
-    dispatch(getSwimClasses());
+    // dispatch(getSwimClasses());
     navigate('/swimClass');
   };
 
