@@ -40,7 +40,7 @@ const ClassCreate = () => {
     setSuccess(true);
     setTimeout(() => {
       navigate('/swimClass');
-    }, 2000);
+    }, 3000);
   };
 
   const screen = (
