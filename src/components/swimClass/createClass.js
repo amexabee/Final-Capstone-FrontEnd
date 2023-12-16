@@ -30,7 +30,6 @@ const ClassCreate = () => {
       description: classDescription,
     };
     dispatch(postClass(classData));
-    // dispatch(getSwimClasses());
     navigate('/swimClass');
   };
 
