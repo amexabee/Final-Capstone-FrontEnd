@@ -3,7 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/ClassCreate.css';
 import images from '../../assets/images/images';
-import { postClass, setPath } from '../../redux/swimClass/swimClass';
+import {
+  postClass,
+  setPath,
+  getSwimClasses,
+} from '../../redux/swimClass/swimClass';
 
 const ClassCreate = () => {
   const [option, setOptions] = useState('');
@@ -30,7 +34,10 @@ const ClassCreate = () => {
       description: classDescription,
     };
     dispatch(postClass(classData));
-    navigate('/swimClass');
+    dispatch(getSwimClasses());
+    setTimeout(() => {
+      navigate('/swimClass');
+    }, 1000);
   };
 
   const screen = (
