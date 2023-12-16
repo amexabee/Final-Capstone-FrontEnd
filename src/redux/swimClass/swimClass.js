@@ -79,8 +79,13 @@ export const swimClassesSlice = createSlice({
     swimClasses: [],
     status: null,
     postStatus: null,
+    path: '/',
   },
-  reducers: {},
+  reducers: {
+    setPath: (state, action) => {
+      state.path = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getSwimClasses.pending, (state) => {
       state.status = 'loading';
@@ -121,6 +126,6 @@ export const swimClassesSlice = createSlice({
   },
 });
 
-export const { swimClassesReducer } = swimClassesSlice.actions;
+export const { setPath } = swimClassesSlice.actions;
 
 export default swimClassesSlice.reducer;
