@@ -8,12 +8,14 @@ import {
   setPath,
   getSwimClasses,
 } from '../../redux/swimClass/swimClass';
+import Loading from '../loading';
 
 const ClassCreate = () => {
   const [option, setOptions] = useState('');
   const [classLocation, setClassLocation] = useState('');
   const [classFee, setClassFee] = useState('');
   const [classDescription, setClassDescription] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ const ClassCreate = () => {
     };
     dispatch(postClass(classData));
     dispatch(getSwimClasses());
+    setSuccess(true);
     setTimeout(() => {
       navigate('/swimClass');
     }, 2000);
@@ -99,6 +102,7 @@ const ClassCreate = () => {
           <button type="submit" className="form-button button">
             Create Class
           </button>
+          {success && <Loading message="wait a moment please" />}
         </form>
       </section>
     </>
