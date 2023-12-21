@@ -23,23 +23,6 @@ const ClassCreate = () => {
     dispatch(setPath('add-class'));
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!option) return;
-    const image = images.filter((img) => img.name === option)[0];
-    const classData = {
-      name: option,
-      location: classLocation,
-      image: image.image,
-      fee: classFee,
-      description: classDescription,
-    };
-    dispatch(postClass(classData));
-    setSuccess(true);
-    setTimeout(() => {
-      navigate('/swimClass');
-    }, 5000);
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!option) return;
