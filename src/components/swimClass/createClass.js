@@ -6,7 +6,6 @@ import images from '../../assets/images/images';
 import {
   postClass,
   setPath,
-  getSwimClasses,
 } from '../../redux/swimClass/swimClass';
 import Loading from '../loading';
 
@@ -36,7 +35,6 @@ const ClassCreate = () => {
       description: classDescription,
     };
     dispatch(postClass(classData));
-    dispatch(getSwimClasses());
     setSuccess(true);
     setTimeout(() => {
       navigate('/swimClass');
