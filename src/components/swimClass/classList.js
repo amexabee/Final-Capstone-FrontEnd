@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../loading';
-import { setPath } from '../../redux/swimClass/swimClass';
+import { setPath, getSwimClasses } from '../../redux/swimClass/swimClass';
 
 const ClassList = () => {
   const { swimClasses, status } = useSelector((store) => store.swimClasses);
@@ -12,6 +12,7 @@ const ClassList = () => {
   const asterisks = '* '.repeat(30);
 
   useEffect(() => {
+    dispatch(getSwimClasses());
     dispatch(setPath('/'));
   });
 
