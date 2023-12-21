@@ -3,10 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../../assets/styles/ClassCreate.css';
 import images from '../../assets/images/images';
-import {
-  postClass,
-  setPath,
-} from '../../redux/swimClass/swimClass';
+import { postClass, setPath } from '../../redux/swimClass/swimClass';
 import Loading from '../loading';
 
 const ClassCreate = () => {
@@ -23,23 +20,6 @@ const ClassCreate = () => {
     dispatch(setPath('add-class'));
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!option) return;
-    const image = images.filter((img) => img.name === option)[0];
-    const classData = {
-      name: option,
-      location: classLocation,
-      image: image.image,
-      fee: classFee,
-      description: classDescription,
-    };
-    dispatch(postClass(classData));
-    setSuccess(true);
-    setTimeout(() => {
-      navigate('/swimClass');
-    }, 5000);
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!option) return;
@@ -51,16 +31,21 @@ const ClassCreate = () => {
       fee: classFee,
       description: classDescription,
     };
-    
+
+    const dispatchPromise = new Promise((resolve, reject) => {
+      dispatch(postClass(classData))
+        .then(() => resolve())
+        .catch((error) => reject(error));
+    });
+
     try {
-      await dispatch(postClass(classData));
+      await dispatchPromise;
       setSuccess(true);
       navigate('/swimClass');
     } catch (error) {
-      console.error("An error occurred:", error);
+      console.error('An error occurred:', error);
     }
-};
-
+  };
 
   const screen = (
     <>
