@@ -14,7 +14,7 @@ const ClassList = () => {
   useEffect(() => {
     dispatch(getSwimClasses());
     dispatch(setPath('/'));
-  });
+  }, []);
 
   const left = () => {
     if (index <= 0) return;
