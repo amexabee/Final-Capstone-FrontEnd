@@ -71,4 +71,18 @@ img {
   .classes li {
     margin-bottom: 40px !important;
   }
+
+  #column {
+    flex-direction: column !important;
+  }
+
+  .create-section {
+    width: 100%;
+    margin: 0;
+    height: 1000px !important;
+  }
+
+  .create-section input {
+    margin-bottom: 10px !important;
+  }
 }
