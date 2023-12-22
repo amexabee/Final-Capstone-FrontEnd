@@ -21,7 +21,7 @@ const ClassDetails = () => {
       {item && (
         <>
           <h3 className="text-center m-3">{item.name}</h3>
-          <div className="d-flex justify-content-center align-items-center item-details mb-5">
+          <div className="swim-detail d-flex justify-content-center align-items-center item-details mb-5">
             <img src={item.image} alt="" className="img-detail" />
             <div className="details p-5">
               <div className="bg-light my-2">{`Fee: $${item.fee}`}</div>

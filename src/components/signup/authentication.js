@@ -14,7 +14,7 @@ const Authentication = () => {
   }, []);
 
   const handleSignIn = async (userData) => {
-    const res = await fetch('https://rails-i4jr.onrender.com/users');
+    const res = await fetch('http://127.0.0.1:4000/users');
     const users = await res.json();
     const newUser = users.filter((user) => user.email === userData.email);
     localStorage.setItem('user', JSON.stringify(newUser[0]));
@@ -36,7 +36,7 @@ const Authentication = () => {
       <h3 className="m-4">
         {(user && 'Thanks for joining in!') || 'Join our community.'}
       </h3>
-      <div className="d-flex flex-column">
+      <div className="sign d-flex flex-column">
         {user ? (
           <>
             <p>
