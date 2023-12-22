@@ -30,7 +30,7 @@ const ClassList = () => {
   if (window.innerWidth >= 768 && sc?.length >= 3) filtered = sc.slice(index, index + 3);
 
   return (
-    <div className="container overflow-auto mb-5">
+    <div className="container overflow-auto mb-5" id="overflow">
       <h1 className="text-center mt-5">Welcome to Swimming Class</h1>
 
       {filtered?.length === 0
