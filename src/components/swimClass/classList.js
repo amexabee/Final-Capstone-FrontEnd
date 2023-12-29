@@ -51,7 +51,11 @@ const ClassList = () => {
             Make a splash with our swimming classes!
           </h4>
           <div className="classes-container">
-            <button className="arrow" type="button" onClick={() => left()}>
+            <button
+              className={index <= 0 ? 'arrow bg-gray' : 'arrow'}
+              type="button"
+              onClick={() => left()}
+            >
               <FaIcons.FaArrowLeft />
             </button>
             <ul className="classes">
@@ -100,7 +104,11 @@ const ClassList = () => {
                 </li>
               ))}
             </ul>
-            <button className="arrow" type="button" onClick={() => right()}>
+            <button
+              className={index >= sc.length - 3 ? 'arrow bg-gray' : 'arrow'}
+              type="button"
+              onClick={() => right()}
+            >
               <FaIcons.FaArrowRight />
             </button>
           </div>
