@@ -2,20 +2,31 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../assets/styles/Bookings.css';
 import { setPath } from '../../redux/swimClass/swimClass';
+import { getBookings } from '../../redux/bookings/bookings';
 
 const Bookings = () => {
   const dispatch = useDispatch();
   const { bookings } = useSelector((state) => state.bookings);
-  // const { swimClasses } = useSelector((state) => state.swimClasses);
+  const user = JSON.parse(localStorage.getItem('user'));
+  const myBookings = user ? bookings.filter((b) => b.user_id === user.id) : [];
+  const { swimClasses: scs } = useSelector((state) => state.swimClasses);
 
   useEffect(() => {
+    dispatch(getBookings());
     dispatch(setPath('reservations'));
   }, []);
 
-  // const findClass = (item) => {
-  //   const sc = swimClasses.filter((sc) => sc.id === item.id)[0];
-  //   return sc ? sc.name : '';
-  // };
+  const findClass = (item) => {
+    const sc = scs.filter((sc) => sc.id === item.swim_class_id)[0];
+    return sc
+      ? {
+        name: sc.name,
+        description: sc.description,
+        location: sc.location,
+        fee: sc.fee,
+      }
+      : null;
+  };
 
   return (
     <section className="bookings">
@@ -30,13 +41,13 @@ const Bookings = () => {
           </tr>
         </thead>
         <tbody className="thead">
-          {bookings.map((item) => (
-            <tr key={item.bookingId}>
-              <td>{item.name}</td>
-              <td>{item.description}</td>
-              <td>{item.location}</td>
+          {myBookings.map((item) => (
+            <tr key={item.id}>
+              <td>{findClass(item)?.name}</td>
+              <td>{findClass(item)?.description}</td>
+              <td>{findClass(item)?.location}</td>
               <td>
-                {item.fee}
+                {findClass(item)?.fee}
                 $
               </td>
             </tr>
