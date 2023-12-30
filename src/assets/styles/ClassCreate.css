@@ -13,7 +13,6 @@
 
 .create-section h1 {
   align-items: center;
-  background-color: #97bf0f;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -22,7 +21,6 @@
 
 .form-container {
   align-items: center;
-  background-color: #97bf0f;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;

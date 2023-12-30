@@ -36,7 +36,7 @@ const Authentication = () => {
       <h3 className="m-4">
         {(user && 'Thanks for joining in!') || 'Join our community.'}
       </h3>
-      <div className="d-flex flex-column">
+      <div className="sign d-flex flex-column">
         {user ? (
           <>
             <p>

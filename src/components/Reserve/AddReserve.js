@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../../assets/styles/addReserve.css';
 import { useDispatch } from 'react-redux';
 import { setPath } from '../../redux/swimClass/swimClass';
+import { postBooking } from '../../redux/bookings/bookings';
 
 const AddReservation = () => {
   const [user, setUser] = useState(null);
@@ -18,24 +19,25 @@ const AddReservation = () => {
     }
   }, []);
 
-  const createReserve = (event) => {
+  const createReserve = async (event) => {
     event.preventDefault();
+
     if (!user) {
       alert('Please Sign In or Sign Up First');
       navigate('/signup');
     } else {
+      const dispatchPromise = new Promise((resolve, reject) => {
+        dispatch(postBooking({ user_id: user.id, swim_class_id: id }))
+          .then(() => resolve())
+          .catch((error) => reject(error));
+      });
+
       try {
-        fetch('https://rails-i4jr.onrender.com/bookings', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ user_id: user.id, swim_class_id: id }),
-        });
+        await dispatchPromise;
+        navigate('/reservations');
       } catch (error) {
-        console.error('Failed to create user', error);
+        console.log(error);
       }
-      navigate('/reservations');
     }
   };
 
@@ -44,7 +46,7 @@ const AddReservation = () => {
       <div className="r_container">
         <h1 className="title">Reserve a Class</h1>
         <p className="about-class">
-          ATO swim classes are available for infants, children, teens, and
+          Float swim classes are available for infants, children, teens, and
           adults. And regardless of where you take your swimming lessons, you
           can expect caring, patient, and safe instruction from trained,
           professional instructors who can help even the most timid of swimmers

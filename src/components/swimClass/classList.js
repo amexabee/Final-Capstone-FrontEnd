@@ -6,7 +6,7 @@ import Loading from '../loading';
 import { setPath, getSwimClasses } from '../../redux/swimClass/swimClass';
 
 const ClassList = () => {
-  const { swimClasses, status } = useSelector((store) => store.swimClasses);
+  const { swimClasses: sc, status } = useSelector((store) => store.swimClasses);
   const dispatch = useDispatch();
   const [index, setIndex] = useState(0);
   const asterisks = '* '.repeat(30);
@@ -22,17 +22,15 @@ const ClassList = () => {
   };
 
   const right = () => {
-    if (index >= swimClasses.length - 3) return;
+    if (index >= sc.length - 3) return;
     setIndex(index + 1);
   };
 
-  let filtered = null;
-  filtered = swimClasses && swimClasses.length >= 3
-    ? swimClasses.slice(index, index + 3)
-    : swimClasses;
+  let filtered = sc;
+  if (window.innerWidth >= 768 && sc?.length >= 3) filtered = sc.slice(index, index + 3);
 
   return (
-    <div className="container overflow-auto mb-5">
+    <div className="container overflow-auto mb-5" id="overflow">
       <h1 className="text-center mt-5">Welcome to Swimming Class</h1>
 
       {filtered?.length === 0
@@ -53,7 +51,11 @@ const ClassList = () => {
             Make a splash with our swimming classes!
           </h4>
           <div className="classes-container">
-            <button className="arrow" type="button" onClick={() => left()}>
+            <button
+              className={index <= 0 ? 'arrow bg-gray' : 'arrow'}
+              type="button"
+              onClick={() => left()}
+            >
               <FaIcons.FaArrowLeft />
             </button>
             <ul className="classes">
@@ -102,7 +104,11 @@ const ClassList = () => {
                 </li>
               ))}
             </ul>
-            <button className="arrow" type="button" onClick={() => right()}>
+            <button
+              className={index >= sc.length - 3 ? 'arrow bg-gray' : 'arrow'}
+              type="button"
+              onClick={() => right()}
+            >
               <FaIcons.FaArrowRight />
             </button>
           </div>

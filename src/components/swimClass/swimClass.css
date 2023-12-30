@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+.bg-gray {
+  background-color: #bbb !important ;
+}
+
 .detail-btn > * {
   text-decoration: none;
 }
