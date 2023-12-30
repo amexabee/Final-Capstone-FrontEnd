@@ -5,6 +5,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  overflow: auto;
 }
 
 .error {
@@ -14,9 +15,74 @@ body {
 .main {
   display: flex;
   height: 100vh;
-  overflow: hidden;
 }
 
 img {
   width: 200px;
+}
+
+@media only screen and (max-width: 767px) {
+  .main {
+    flex-direction: column;
+    height: auto;
+  }
+
+  #overflow {
+    overflow: hidden !important;
+  }
+
+  nav div,
+  nav p {
+    display: none;
+  }
+
+  .swim-detail {
+    flex-direction: column !important;
+    width: 100vw !important;
+    padding: 0 !important;
+  }
+
+  .details {
+    max-width: 90% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .details > * {
+    width: fit-content !important;
+  }
+
+  .img-detail {
+    width: 80% !important;
+  }
+
+  .sign {
+    margin-bottom: 20px;
+  }
+
+  .arrow {
+    display: none !important;
+  }
+
+  .classes {
+    flex-direction: column;
+  }
+  .classes li {
+    margin-bottom: 40px !important;
+  }
+
+  #column {
+    flex-direction: column !important;
+  }
+
+  .create-section {
+    width: 100%;
+    margin: 0;
+    height: 1000px !important;
+  }
+
+  .create-section input {
+    margin-bottom: 10px !important;
+  }
 }

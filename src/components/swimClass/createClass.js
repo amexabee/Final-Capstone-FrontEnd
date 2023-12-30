@@ -48,68 +48,66 @@ const ClassCreate = () => {
   };
 
   const screen = (
-    <>
-      <section className="create-section">
-        <h1>Create a class</h1>
-        <form
-          className="form-container"
-          onSubmit={(e) => {
-            handleSubmit(e);
-          }}
-        >
-          <div className="d-flex">
-            {images.map((image) => (
-              <span key={image.name} className="form-check mx-3">
-                <label className="form-check-label" htmlFor="exampleRadios1">
-                  <input
-                    className="form-check-input mx-3"
-                    type="radio"
-                    name="exampleRadios"
-                    id="exampleRadios1"
-                    value={image.name}
-                    onChange={(e) => setOptions(e.target.value)}
-                  />
-                  <p>{image.name}</p>
-                </label>
-              </span>
-            ))}
-          </div>
-          <input
-            type="text"
-            placeholder="Location"
-            name="classLocation"
-            className="form-input"
-            value={classLocation}
-            onChange={(e) => setClassLocation(e.target.value)}
-            required
-          />
+    <section className="create-section">
+      <h1>Create a class</h1>
+      <form
+        className="form-container"
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
+        <div className="d-flex" id="column">
+          {images.map((image) => (
+            <span key={image.name} className="form-check mx-3">
+              <label className="form-check-label" htmlFor="exampleRadios1">
+                <input
+                  className="form-check-input mx-3"
+                  type="radio"
+                  name="exampleRadios"
+                  id="exampleRadios1"
+                  value={image.name}
+                  onChange={(e) => setOptions(e.target.value)}
+                />
+                <p>{image.name}</p>
+              </label>
+            </span>
+          ))}
+        </div>
+        <input
+          type="text"
+          placeholder="Location"
+          name="classLocation"
+          className="form-input"
+          value={classLocation}
+          onChange={(e) => setClassLocation(e.target.value)}
+          required
+        />
 
-          <input
-            type="text"
-            placeholder="Description"
-            name="classDescription"
-            className="form-input"
-            value={classDescription}
-            onChange={(e) => setClassDescription(e.target.value)}
-            required
-          />
+        <input
+          type="text"
+          placeholder="Description"
+          name="classDescription"
+          className="form-input"
+          value={classDescription}
+          onChange={(e) => setClassDescription(e.target.value)}
+          required
+        />
 
-          <input
-            type="number"
-            placeholder="Fee"
-            name="classFee"
-            className="form-input"
-            value={classFee}
-            onChange={(e) => setClassFee(e.target.value)}
-            required
-          />
-          <button type="submit" className="form-button button">
-            Create Class
-          </button>
-          {success && <Loading message="wait a moment please" />}
-        </form>
-      </section>
-    </>
+        <input
+          type="number"
+          placeholder="Fee"
+          name="classFee"
+          className="form-input"
+          value={classFee}
+          onChange={(e) => setClassFee(e.target.value)}
+          required
+        />
+        <button type="submit" className="form-button button">
+          Create Class
+        </button>
+        {success && <Loading message="wait a moment please" />}
+      </form>
+    </section>
   );
 
   return screen;
