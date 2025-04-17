@@ -60,7 +60,7 @@
 
 ### Setup
 
-Follow [this link](https://github.com/amecabee/final-capstone) to visit the [back-end repository]() and start the server on localhost:3000.
+Follow [this link](https://github.com/amexabee/final-capstone) to visit the back-end repository and start the server on localhost:3000.
 
 - Clone this repository ``
 - Cd or navigate into the directory and run `npm install` to install dependencies
