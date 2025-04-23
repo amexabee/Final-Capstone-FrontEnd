@@ -9,10 +9,16 @@ const ClassList = () => {
   const dispatch = useDispatch();
   const { swimClasses: classes } = useSelector((store) => store.swimClasses);
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(true); // 👈 Add this
   const asterisks = '* '.repeat(30);
 
   useEffect(() => {
-    dispatch(getClasses());
+    const fetchData = async () => {
+      setLoading(true); // Start loading
+      await dispatch(getClasses()); // Wait for data
+      setLoading(false); // Done loading
+    };
+    fetchData();
   }, [dispatch]);
 
   const left = () => {
@@ -34,8 +40,8 @@ const ClassList = () => {
       <h4 className="text-center my-5">
         Make a splash with our swimming classes! 💦
       </h4>
-      {!filtered && <Loading message="Loading..." />}
-      {filtered && filtered.length === 0 && (
+      {loading && <Loading message="Loading..." />}
+      {!loading && filtered?.length === 0 && (
         <Loading
           message={(
             <>
@@ -46,8 +52,9 @@ const ClassList = () => {
           )}
         />
       )}
-      {filtered?.length !== 0 && (
+      {!loading && filtered?.length !== 0 && (
         <div className="classes-container">
+          {' '}
           <button
             className={`arrow arrow-${index === 0 ? 'gray' : 'green'}`}
             type="button"
