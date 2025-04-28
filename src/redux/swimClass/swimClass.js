@@ -61,15 +61,16 @@ if (!localStorage.getItem('Swim Classes')) localStorage.setItem('Swim Classes', 
 export const getClasses = createAsyncThunk(
   'swimClasses/getSwimClasses',
   async () => {
+    const local = JSON.parse(localStorage.getItem('Swim Classes')) || [];
     try {
       const response = await fetch(classURL);
       const data = await response.json();
       if (Array.isArray(data) && data.length > 0) {
-        return data;
+        return [...local, ...data];
       }
-      return JSON.parse(localStorage.getItem('Swim Classes'));
+      return local;
     } catch (err) {
-      return JSON.parse(localStorage.getItem('Swim Classes'));
+      return local;
     }
   },
 );
