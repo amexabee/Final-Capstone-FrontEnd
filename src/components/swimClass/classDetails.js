@@ -20,7 +20,11 @@ const ClassDetails = () => {
   }, [dispatch, swimClasses]);
 
   const handleDelete = (id) => {
+    let local = JSON.parse(localStorage.getItem('Swim Classes'));
+    local = local.filter((swimClass) => swimClass.id !== id);
+    localStorage.setItem('Swim Classes', JSON.stringify(local));
     dispatch(deleteClass(id));
+    dispatch(getClasses.fulfilled(local));
     navigate('/swimClass');
   };
 

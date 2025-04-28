@@ -1,6 +1,62 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import images from '../../assets/images/images';
 
 const classURL = 'https://rails-kicq.onrender.com/swim_classes';
+
+const data = [
+  {
+    id: 1000001,
+    name: 'Backstroke',
+    location: 'New York',
+    description:
+      'Swum on the back with alternating arms and flutter kicks, great for spinal alignment.',
+    image: images[0],
+    fee: 120,
+    booked: null,
+  },
+  {
+    id: 1000002,
+    name: 'Breaststroke',
+    location: 'Indianapolis',
+    description:
+      'A slower, symmetrical stroke using frog-like kicks and simultaneous arm movements.',
+    image: images[1],
+    fee: 150,
+    booked: null,
+  },
+  {
+    id: 1000003,
+    name: 'Freestyle (Front Crawl)',
+    location: 'Raleigh',
+    description:
+      'Fastest and most common stroke, using alternating arm movements and flutter kicks.',
+    image: images[2],
+    fee: 100,
+    booked: null,
+  },
+  {
+    id: 1000004,
+    name: 'Butterfly',
+    location: 'Minneapolis',
+    description:
+      'Powerful and demanding stroke using dolphin kicks and symmetrical arm swings.',
+    image: images[3],
+    fee: 140,
+    booked: null,
+  },
+  {
+    id: 1000005,
+    name: 'Sidestroke',
+    location: 'Miami',
+    description:
+      'A relaxing and efficient stroke using scissor kicks, often used in lifesaving.',
+    image: images[4],
+    fee: 130,
+    booked: null,
+  },
+];
+
+if (!localStorage.getItem('Swim Classes')) localStorage.setItem('Swim Classes', JSON.stringify(data));
 
 export const getClasses = createAsyncThunk(
   'swimClasses/getSwimClasses',
@@ -75,7 +131,7 @@ export const updateClass = createAsyncThunk(
 export const swimClassesSlice = createSlice({
   name: 'swim_classes',
   initialState: {
-    swimClasses: [],
+    swimClasses: JSON.parse(localStorage.getItem('Swim Classes')),
     status: null,
     postStatus: null,
   },

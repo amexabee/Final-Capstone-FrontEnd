@@ -23,6 +23,17 @@ const Bookings = () => {
   const ids = [];
   bookings.forEach((book) => ids.push(book.bookingClassId));
   const filtered = items.filter((item) => ids.includes(item.id));
+  const local = JSON.parse(localStorage.getItem('swimClass'));
+  if (local) {
+    local.forEach((sc) => {
+      if (sc.booked === id) {
+        filtered.push({
+          ...sc,
+          bookingId: sc.id,
+        });
+      }
+    });
+  }
 
   return (
     <>

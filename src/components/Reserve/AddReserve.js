@@ -18,6 +18,17 @@ const AddReservation = () => {
     event.preventDefault();
     if (!user) navigate('/signup');
     else {
+      let local = JSON.parse(localStorage.getItem('swimClass'));
+      if (local) {
+        local = local.map((swimClass) => {
+          if (swimClass.id === id) {
+            return { ...swimClass, booked: user.id };
+          }
+          return swimClass;
+        });
+        localStorage.setItem('swimClass', JSON.stringify(local));
+      }
+
       try {
         fetch('https://rails-kicq.onrender.com/bookings', {
           method: 'POST',

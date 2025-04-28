@@ -9,14 +9,14 @@ const ClassList = () => {
   const dispatch = useDispatch();
   const { swimClasses: classes } = useSelector((store) => store.swimClasses);
   const [index, setIndex] = useState(0);
-  const [loading, setLoading] = useState(true); // 👈 Add this
+  const [loading, setLoading] = useState(true);
   const asterisks = '* '.repeat(30);
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Start loading
-      await dispatch(getClasses()); // Wait for data
-      setLoading(false); // Done loading
+      setLoading(true);
+      await dispatch(getClasses());
+      setLoading(false);
     };
     fetchData();
   }, [dispatch]);
