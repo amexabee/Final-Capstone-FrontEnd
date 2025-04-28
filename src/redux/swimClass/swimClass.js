@@ -64,10 +64,10 @@ export const getClasses = createAsyncThunk(
     try {
       const response = await fetch(classURL);
       const data = await response.json();
-      if (!data || data.length === 0) {
-        return JSON.parse(localStorage.getItem('Swim Classes'));
+      if (Array.isArray(data) && data.length > 0) {
+        return data;
       }
-      return data;
+      return JSON.parse(localStorage.getItem('Swim Classes'));
     } catch (err) {
       return JSON.parse(localStorage.getItem('Swim Classes'));
     }

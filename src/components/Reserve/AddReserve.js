@@ -14,14 +14,14 @@ const AddReservation = () => {
     }
   }, []);
 
-  const createReserve = (event) => {
+  const createReserve = async (event) => {
     event.preventDefault();
     if (!user) navigate('/signup');
     else {
-      let local = JSON.parse(localStorage.getItem('swimClass'));
+      let local = JSON.parse(localStorage.getItem('Swim Classes'));
       if (local) {
         local = local.map((swimClass) => {
-          if (swimClass.id === id) {
+          if (swimClass.id === parseInt(id, 10)) {
             return { ...swimClass, booked: user.id };
           }
           return swimClass;
@@ -30,17 +30,25 @@ const AddReservation = () => {
       }
 
       try {
-        fetch('https://rails-kicq.onrender.com/bookings', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          'https://rails-kicq.onrender.com/bookings',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user_id: user.id,
+              swim_class_id: parseInt(id, 10),
+            }),
           },
-          body: JSON.stringify({ user_id: user.id, swim_class_id: id }),
-        });
+        );
+
+        if (!response.ok) throw new Error('Reservation failed');
+        navigate('/reservations');
       } catch (error) {
-        throw new Error('Failed to create reservation');
+        console.error(error.message);
       }
-      navigate('/reservations');
     }
   };
 
