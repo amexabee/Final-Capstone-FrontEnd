@@ -22,18 +22,10 @@ const Bookings = () => {
   }, []);
   const ids = [];
   bookings.forEach((book) => ids.push(book.bookingClassId));
-  const filtered = items.filter((item) => ids.includes(item.id));
-  const local = JSON.parse(localStorage.getItem('Swim Classes'));
-  if (local) {
-    local.forEach((sc) => {
-      if (sc.booked === id) {
-        filtered.push({
-          ...sc,
-          bookingId: sc.id,
-        });
-      }
-    });
-  }
+  let filtered = items.filter((item) => ids.includes(item.id));
+  let local = JSON.parse(localStorage.getItem('Reserveations')) || [];
+  local = local.filter((item) => item.booked === id);
+  filtered = [...filtered, ...local];
 
   return (
     <>
