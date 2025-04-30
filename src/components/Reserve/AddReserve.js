@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../assets/styles/addReserve.css';
@@ -18,15 +19,20 @@ const AddReservation = () => {
     event.preventDefault();
     if (!user) navigate('/signup');
     else {
-      let local = JSON.parse(localStorage.getItem('Swim Classes'));
-      if (local) {
-        local = local.map((swimClass) => {
-          if (swimClass.id === parseInt(id, 10)) {
-            return { ...swimClass, booked: user.id };
+      const local = JSON.parse(localStorage.getItem('Reservations')) || [];
+      let exists = false;
+      local.forEach((res) => {
+        if (res.id === parseInt(id, 10)) exists = true;
+      });
+
+      if (!exists) {
+        JSON.parse(localStorage.getItem('Swim Classes')).forEach((sc) => {
+          if (sc.id === parseInt(id, 10)) {
+            sc.booked = user.id;
+            local.push(sc);
           }
-          return swimClass;
         });
-        localStorage.setItem('swimClass', JSON.stringify(local));
+        localStorage.setItem('Reservations', JSON.stringify(local));
       }
 
       try {
@@ -47,7 +53,7 @@ const AddReservation = () => {
         if (!response.ok) throw new Error('Reservation failed');
         navigate('/reservations');
       } catch (error) {
-        console.error(error.message);
+        console.error(error.message); // eslint-disable-line no-console
       }
     }
   };

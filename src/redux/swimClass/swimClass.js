@@ -133,7 +133,7 @@ export const updateClass = createAsyncThunk(
 export const swimClassesSlice = createSlice({
   name: 'swim_classes',
   initialState: {
-    swimClasses: JSON.parse(localStorage.getItem('Swim Classes')),
+    swimClasses: JSON.parse(localStorage.getItem('Swim Classes')) || [],
     status: null,
     postStatus: null,
   },

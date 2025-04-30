@@ -4,6 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const getBookings = createAsyncThunk(
   'bookings/getBookings',
   async () => {
+    const local = JSON.parse(localStorage.getItem('Reservations')) || [];
     const response = await fetch('https://rails-kicq.onrender.com/bookings', {
       method: 'GET',
       headers: {
@@ -11,8 +12,11 @@ export const getBookings = createAsyncThunk(
         accept: 'application/json',
       },
     });
-    const bookings = await response.json();
-    return bookings;
+    const data = await response.json();
+    if (Array.isArray(data) && data.length > 0) {
+      return [...local, ...data];
+    }
+    return local;
   },
 );
 export const postBooking = createAsyncThunk(
@@ -34,7 +38,7 @@ export const postBooking = createAsyncThunk(
 export const bookingsSlice = createSlice({
   name: 'bookings',
   initialState: {
-    bookings: [],
+    bookings: JSON.parse(localStorage.getItem('Reservations')) || [],
     status: null,
   },
   reducers: {
