@@ -11,7 +11,7 @@ const Bookings = () => {
   const id = user ? user.id : 0;
 
   useEffect(() => {
-    dispatch(getBookings(id));
+    dispatch(getBookings());
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -21,7 +21,10 @@ const Bookings = () => {
       .catch((err) => err);
   }, []);
   const ids = [];
-  bookings.forEach((book) => ids.push(book.bookingClassId));
+  const userBookings = bookings.filter((book) => book.bookingUserId === id);
+  userBookings.forEach((ub) => {
+    ids.push(ub.bookingClassId);
+  });
   let filtered = items.filter((item) => ids.includes(item.id));
   let local = JSON.parse(localStorage.getItem('Reservations')) || [];
   local = local.filter((item) => item.booked === id);
@@ -42,7 +45,7 @@ const Bookings = () => {
           </thead>
           <tbody className="thead">
             {filtered.map((item) => (
-              <tr key={item.bookingId}>
+              <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>
                   {item.description.length > 30

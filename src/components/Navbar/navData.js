@@ -27,9 +27,9 @@ const links = [
 export default links;
 
 export const logos = [
-  <FaIcons.FaTwitter key="1" />,
-  <FaIcons.FaFacebook key="2" />,
-  <FaIcons.FaGooglePlus key="3" />,
-  <FaIcons.FaVimeo key="4" />,
-  <FaIcons.FaPinterest key="5" />,
+  { id: 1, icon: <FaIcons.FaTwitter /> },
+  { id: 2, icon: <FaIcons.FaFacebook /> },
+  { id: 3, icon: <FaIcons.FaGooglePlus /> },
+  { id: 4, icon: <FaIcons.FaVimeo /> },
+  { id: 5, icon: <FaIcons.FaPinterest /> },
 ];
