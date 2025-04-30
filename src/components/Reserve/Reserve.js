@@ -44,7 +44,11 @@ const Bookings = () => {
             {filtered.map((item) => (
               <tr key={item.bookingId}>
                 <td>{item.name}</td>
-                <td>{item.description}</td>
+                <td>
+                  {item.descriptions.length > 30
+                    ? `${item.descriptions.slice(0, item.descriptions)}...`
+                    : item.descriptions}
+                </td>
                 <td>{item.location}</td>
                 <td>
                   {item.fee}
