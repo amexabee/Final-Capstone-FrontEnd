@@ -4,67 +4,88 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const getBookings = createAsyncThunk(
   'bookings/getBookings',
   async () => {
-    const response = await fetch('https://rails-i4jr.onrender.com/bookings', {
+    const local = JSON.parse(localStorage.getItem('Reservations')) || [];
+    const response = await fetch('https://rails-kicq.onrender.com/bookings', {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
         accept: 'application/json',
       },
     });
-    const bookings = await response.json();
-    return bookings;
+    const data = await response.json();
+    if (Array.isArray(data) && data.length > 0) {
+      return [...local, ...data];
+    }
+    return local;
   },
 );
 export const postBooking = createAsyncThunk(
   'bookings/postBooking',
   async (data) => {
-    await fetch('https://rails-i4jr.onrender.com/bookings', {
+    const response = await fetch('https://rails-kicq.onrender.com/bookings', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
         accept: 'application/json',
       },
-      body: JSON.stringify(data),
-    }).then((res) => {
-      if (res.ok) {
-        console.log(res.json());
-        return res.json();
-      }
-      throw new Error('something went wrong');
+      body: JSON.stringify(data.booking),
     });
+    const reservations = await response.json();
+    return reservations;
   },
 );
 
 export const bookingsSlice = createSlice({
   name: 'bookings',
   initialState: {
-    bookings: [],
+    bookings: JSON.parse(localStorage.getItem('Reservations')) || [],
     status: null,
   },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(getBookings.pending, (state) => {
-      state.status = 'loading';
-    });
-    builder.addCase(getBookings.fulfilled, (state, action) => {
-      state.bookings = action.payload;
-      state.status = 'success';
-    });
-    builder.addCase(getBookings.rejected, (state) => {
-      state.status = 'failed';
-    });
-    builder.addCase(postBooking.pending, (state) => {
-      state.status = 'loading';
-    });
-    builder.addCase(postBooking.fulfilled, (state, action) => {
-      console.log(action);
+  reducers: {
+    setStatus(state) {
+      state.status = null;
+    },
+  },
+  extraReducers: {
+    [postBooking.fulfilled]: (state, action) => {
       state.bookings = [...state.bookings, action.payload];
       state.status = 'success';
-    });
-    builder.addCase(postBooking.rejected, (state) => {
+    },
+    [postBooking.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [postBooking.rejected]: (state) => {
       state.status = 'failed';
-    });
+    },
+    [getBookings.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [getBookings.fulfilled]: (state, action) => {
+      const bookings = action.payload.map((booking) => {
+        const {
+          id: bookingId,
+          start_time: bookingDate,
+          end_time: bookingDateEnd,
+          user_id: bookingUserId,
+          swim_class_id: bookingClassId,
+        } = booking;
+        return {
+          bookingId,
+          bookingDate,
+          bookingDateEnd,
+          bookingUserId,
+          bookingClassId,
+        };
+      });
+      state.bookings = bookings;
+      state.status = 'success';
+    },
+    [getBookings.rejected]: (state) => {
+      state.status = 'failed';
+    },
   },
 });
+
+export const { bookingsReducer, setStatus } = bookingsSlice.actions;
 
 export default bookingsSlice.reducer;
