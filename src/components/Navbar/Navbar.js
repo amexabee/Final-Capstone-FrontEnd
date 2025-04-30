@@ -24,7 +24,7 @@ const Navbar = () => {
       <div className="m-2 d-flex">
         {logos.map((item) => (
           <div className="mx-2" key={item.id}>
-            {item}
+            {item.icon}
           </div>
         ))}
       </div>
