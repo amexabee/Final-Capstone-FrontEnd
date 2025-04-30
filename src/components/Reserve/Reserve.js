@@ -23,7 +23,7 @@ const Bookings = () => {
   const ids = [];
   bookings.forEach((book) => ids.push(book.bookingClassId));
   let filtered = items.filter((item) => ids.includes(item.id));
-  let local = JSON.parse(localStorage.getItem('Reserveations')) || [];
+  let local = JSON.parse(localStorage.getItem('Reservations')) || [];
   local = local.filter((item) => item.booked === id);
   filtered = [...filtered, ...local];
 
