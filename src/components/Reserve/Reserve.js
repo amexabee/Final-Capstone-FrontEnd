@@ -45,9 +45,9 @@ const Bookings = () => {
               <tr key={item.bookingId}>
                 <td>{item.name}</td>
                 <td>
-                  {item.descriptions.length > 30
-                    ? `${item.descriptions.slice(0, item.descriptions)}...`
-                    : item.descriptions}
+                  {item.description.length > 30
+                    ? `${item.description.slice(0, item.description)}...`
+                    : item.description}
                 </td>
                 <td>{item.location}</td>
                 <td>
