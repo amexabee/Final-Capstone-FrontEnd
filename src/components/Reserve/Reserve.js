@@ -46,7 +46,7 @@ const Bookings = () => {
                 <td>{item.name}</td>
                 <td>
                   {item.description.length > 30
-                    ? `${item.description.slice(0, item.description)}...`
+                    ? `${item.description.slice(0, 30)}...`
                     : item.description}
                 </td>
                 <td>{item.location}</td>
