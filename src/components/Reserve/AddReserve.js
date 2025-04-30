@@ -51,10 +51,10 @@ const AddReservation = () => {
         );
 
         if (!response.ok) throw new Error('Reservation failed');
-        navigate('/reservations');
       } catch (error) {
         console.error(error.message); // eslint-disable-line no-console
       }
+      navigate('/reservations');
     }
   };
 

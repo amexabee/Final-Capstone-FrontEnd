@@ -21,7 +21,9 @@ const Bookings = () => {
       .catch((err) => err);
   }, []);
   const ids = [];
-  bookings.forEach((book) => ids.push(book.bookingClassId));
+  bookings.forEach((book) => {
+    if (book.userId === id) ids.push(book.bookingClassId);
+  });
   let filtered = items.filter((item) => ids.includes(item.id));
   let local = JSON.parse(localStorage.getItem('Reservations')) || [];
   local = local.filter((item) => item.booked === id);
