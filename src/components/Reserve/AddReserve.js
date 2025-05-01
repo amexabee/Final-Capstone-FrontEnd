@@ -14,15 +14,15 @@ const AddReservation = () => {
       setUser(JSON.parse(storedUser));
     }
   }, []);
-
   const createReserve = async (event) => {
     event.preventDefault();
     if (!user) navigate('/signup');
     else {
       const local = JSON.parse(localStorage.getItem('Reservations')) || [];
       let exists = false;
+
       local.forEach((res) => {
-        if (res.id === parseInt(id, 10)) exists = true;
+        if (res.id === parseInt(id, 10) && res.booked === user.id) exists = true;
       });
 
       if (!exists) {
@@ -63,7 +63,7 @@ const AddReservation = () => {
       <div className="r_container">
         <h1 className="title">Reserve a Class</h1>
         <p className="about-class">
-          ATO swim classes are available for infants, children, teens, and
+          Float swim classes are available for infants, children, teens, and
           adults. And regardless of where you take your swimming lessons, you
           can expect caring, patient, and safe instruction from trained,
           professional instructors who can help even the most timid of swimmers
